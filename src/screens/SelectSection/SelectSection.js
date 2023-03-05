@@ -18,8 +18,8 @@ const SelectSection = () => {
         }
 
         const data = {data: {...route?.params?.data, section}};
-        navigation.navigate('Blood Group',{data});
-        console.log(data)
+        navigation.navigate('Blood Group',data);
+        console.log('Section',data)
     };
 
     return (

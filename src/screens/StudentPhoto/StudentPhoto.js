@@ -1,4 +1,4 @@
-import {View, Text, Image,TouchableOpacity,ImagePicker} from 'react-native';
+import {View, Text, Image,TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {camera} from '../../assets/images';
 import Button from '../../components/Button/Button';
@@ -11,12 +11,9 @@ const StudentPhoto = () => {
   const [selectimage, setUri] = useState();
   const route = useRoute();
 
-  
   const pickImage = async () => {
     try {
     const result = await launchImageLibrary({
-      //   maxHeight: 200,
-      //   maxWidth: 200,
     });
     // console.log(result);
     setUri(result?.assets[0]?.uri); // optional chaining
@@ -36,8 +33,8 @@ const getImage = async () => {
   const ContinuetoClicked = () => {
 
     const data = {data: {...route?.params?.data,  image: selectimage}};
-    navigation.navigate('Preview Screen',{data});
-    console.log(data);
+    navigation.navigate('Preview Screen',data);
+    console.log('Student Photo',data);
 
   };
   

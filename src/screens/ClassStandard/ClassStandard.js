@@ -1,5 +1,5 @@
-import { View, Text, Image, TextInput } from 'react-native';
-import React, { useState } from 'react';
+import { View, Text, Image} from 'react-native';
+import React, { useState, useEffect } from 'react';
 import { classstandard } from '../../assets/images';
 import Button from '../../components/Button/Button';
 import styles from './styles';
@@ -9,24 +9,31 @@ import { Dropdown } from 'react-native-element-dropdown';
 const ClassStandard = () => {
     const navigation = useNavigation();
     const [value, setValue] = useState(null);
+    const [classesData, setClassesData] = useState();
     const route = useRoute();
 
-    const data = [
-        { label: 'Nur', value: '1' },
-        { label: 'LKG', value: '2' },
-        { label: '1', value: '3' },
-        { label: '2', value: '4' },
-        { label: '3', value: '5' },
-        { label: '4', value: '6' },
-        { label: '5', value: '7' },
-        { label: '6', value: '8' },
-        { label: '7', value: '3' },
-        { label: '8', value: '4' },
-        { label: '9', value: '5' },
-        { label: '10', value: '6' },
-        { label: '11', value: '7' },
-        { label: '12', value: '8' },
-      ];
+    useEffect(() => {
+        fetchClasseData();
+      }, []);
+
+    const callApi = async (url, method, data) => {
+        return await fetch(url, {
+          method: method,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data',
+          },
+          body: data,
+        });
+      };
+
+      const fetchClasseData = async () => {
+        const response = await callApi('https://impressads.in/api/classes', 'GET');
+    
+        const json = await response.json();
+        setClassesData(json);
+      };
+
     const ContinuetoClicked = () => {
 
         if (!value) {
@@ -35,8 +42,8 @@ const ClassStandard = () => {
         }
 
         const data = {data: {...route?.params?.data, value}};
-        navigation.navigate('Select Section',{data});
-        console.log(data)
+        navigation.navigate('Select Section',data);
+        console.log('class',data);
     };
 
     return (
@@ -63,19 +70,19 @@ const ClassStandard = () => {
                 selectedTextStyle={styles.selectedTextStyle}
                 inputSearchStyle={styles.inputSearchStyle}
                 iconStyle={styles.iconStyle}
-                data={data}
+                data={classesData}
                 search
                 maxHeight={300}
-                labelField="label"
-                valueField="value"
+                labelField="name"
+                valueField="id"
                 placeholder="Select class"
                 searchPlaceholder="Search class"
                 value={value}
                 onChange={item => {
-                    setValue(item.value);
+                    setValue(item.id);
                 }}
-             
-                />
+             />
+
                 <Button
                     title="Continue"
                     onPress={ContinuetoClicked}

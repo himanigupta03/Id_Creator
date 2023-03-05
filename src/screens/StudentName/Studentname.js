@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import { studentlogo } from '../../assets/images';
 import Button from '../../components/Button/Button';
 import styles from './styles';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const Studentname = () => {
     const navigation = useNavigation();
-    const [name, setName] = useState("ria");
+    const route = useRoute();
+    const [name, setName] = useState("Himi");
 
     const ContinuetoClicked = () => {
 
@@ -16,7 +17,10 @@ const Studentname = () => {
             return;
         }
 
-        navigation.navigate('Registration',{data: name,});
+        const data = {data: {...route?.params?.data, name: name}};
+
+        navigation.navigate('Registration', data);
+        console.log('Student Name', data);
     };
 
     return (
@@ -38,7 +42,7 @@ const Studentname = () => {
             <View style={styles.main}>
                 <TextInput
                     style={styles.input}
-                    placeholder="name"
+                    placeholder="Denis Billete"
                     value={name}
                     onChangeText={str => setName(str)}
                 />

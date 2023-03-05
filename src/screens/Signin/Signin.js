@@ -36,9 +36,9 @@ const Signin = () => {
         );
     
         const json = await response.json();
-        //console.log(json);
+        console.log(json);
         if (json?.status) {
-          navigation.navigate('Studentname');
+          navigation.navigate('Studentname',{data: {user_id: json.user_info.id}});
         } else {
           alert(json?.message);
         }

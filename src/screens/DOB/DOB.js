@@ -22,12 +22,12 @@ const DOB = () => {
     }
 
     const data = {data: {...route?.params?.data, date}};
-    navigation.navigate('Student Photo');
-    console.log(data)
+    navigation.navigate('Student Photo',data);
+    console.log('DOB',data)
   };
 
   const selecttoClicked = () =>{
-    console.log('TextInput pressed');
+    console.log('DOBInput pressed');
     setOpen(true);
   }
 

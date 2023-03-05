@@ -16,13 +16,10 @@ const Registration = () => {
             alert('name cannot be empty');
             return;
         }
-        const payload = {
-            name: route?.params?.data,
-            registrationNumber: number,
-          };
+        const data = {data: {...route?.params?.data, registrationNumber: number}};
 
-        navigation.navigate('Class Standard',{data: payload});
-        console.log(payload);
+        navigation.navigate('Class Standard',data);
+        console.log('Registration', data);
     };
 
     return (

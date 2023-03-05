@@ -7,7 +7,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 const BloodGroup = () => {
     const navigation = useNavigation();
-    const [blood, setName] = useState("A/B");
+    const [blood, setName] = useState("A");
     const route = useRoute();
 
     const ContinuetoClicked = () => {
@@ -18,8 +18,8 @@ const BloodGroup = () => {
         }
 
         const data = {data: {...route?.params?.data, blood}};
-        navigation.navigate('DOB');
-        console.log(data)
+        navigation.navigate('DOB',data);
+        console.log('blood Group',data)
     };
 
     return (
